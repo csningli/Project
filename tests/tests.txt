@@ -1,0 +1,19 @@
+
+>>> from simpro import SimpleProject
+>>> test_name = 'helloworld'
+>>> test_path = './Test'
+>>> import os
+>>> if not os.path.isdir(test_path) :
+... 	os.mkdir(test_path)
+>>> pro = SimpleProject(name = test_name, path = test_path)
+>>> print(pro)
+[SimpleProject name : helloworld , path : ./Test]
+>>> print(SimpleProject.config['profile_ext'])
+.pro
+>>> pro.save()
+True
+>>> pro2 = SimpleProject(profile = os.path.join(test_path, test_name, test_name + SimpleProject.config['profile_ext']))
+>>> print(pro2)
+[SimpleProject name : helloworld , path : ./Test]
+
+
