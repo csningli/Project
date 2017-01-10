@@ -1,3 +1,6 @@
+# Vim temporaries 
+*.swp
+
 # fossil temporories 
 .fslckout
 
