@@ -109,6 +109,8 @@ class SimpleProject :
             
             if len(profile_split) >= 3 and len(profile_split[-1]) > len(self.config['profile_ext']) :
                 name = profile_split[-1][ : -len(self.config['profile_ext'])]
+                if len(profile_split[0]) < 1 :
+                    profile_split[0] = '/'
                 path = os.path.join(*profile_split[:-2])
                 is_name_consistent = (name == profile_split[-2])
                 
@@ -141,7 +143,7 @@ class SimpleProject :
 
             profile = os.path.join(self.path, self.name, self.name + self.config['profile_ext'])
             if not os.path.exists(profile) :
-                self.error('The project has no valid profile.') 
+                self.error('The project has no valid profile: %s' % profile) 
                 return False
                 
             for component in self.components.keys() :
@@ -169,7 +171,7 @@ class SimpleProject :
             new_file = os.path.join(self.path, self.name, component, name)
                     
             if not os.path.exists(new_file) :
-                with open(new_file) as f :
+                with open(new_file, 'w') as f :
                     f.write(self.components[component])
                 self.log('Created file : %s' % new_file)
             else :  
