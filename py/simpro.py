@@ -41,8 +41,9 @@ class SimpleProject :
             else :  
                 self.log('None \'name\' or \'path\'')
                 result = None
-                
+        
         if result :
+            self.init()
             self.log('Initialization succeeds.') 
         else :
             self.log('Initialization fails.')
@@ -51,6 +52,8 @@ class SimpleProject :
     def __str__(self) :
         return "[SimpleProject name : %s , path : %s]" % (self.name, self.path)
     
+    def init(self) :
+        pass
     
     def log(self, logline) :
         timelabel = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
@@ -93,23 +96,23 @@ class SimpleProject :
         return True
         
         
-    def load(self, profile = None) :
+    def load(self, profile_path = None) :
 
-        # check if pro_file correctly indicates a Dao project.
+        # check if profile_profile correctly indicates a project.
         
-        if profile is None : 
-            profile = os.path.join(self.path, self.name, self.name + self.config['profile_ext'])
+        if profile_path is None : 
+            profile_path = os.path.join(self.path, self.name, self.name + self.config['profile_ext'])
             
-        self.log('Load project with \'profile\' : %s' % profile)
-        if profile.__class__.__name__ == 'str' \
-                and len(profile) > len(self.config['profile_ext']) \
-                and profile[-len(self.config['profile_ext']) : ] == self.config['profile_ext'] \
-                and os.path.exists(profile) : 
+        self.log('Load project with \'profile_path\' : %s' % profile_path)
+        if profile_path.__class__.__name__ == 'str' \
+                and len(profile_path) > len(self.config['profile_ext']) \
+                and profile_path[-len(self.config['profile_ext']) : ] == self.config['profile_ext'] \
+                and os.path.exists(profile_path) : 
 
             name = '' 
             path = ''
             is_name_consistent = False
-            profile_split = profile.strip().split('/')
+            profile_split = profile_path.strip().split('/')
             
             if len(profile_split) >= 3 and len(profile_split[-1]) > len(self.config['profile_ext']) :
                 name = profile_split[-1][ : -len(self.config['profile_ext'])]
@@ -123,16 +126,16 @@ class SimpleProject :
                 self.name = name
                
                 if self.validate() :
-                    with open(profile, 'r') as f :
+                    with open(profile_path, 'r') as f :
                         self.context = json.load(f)
                 else :
                     self.error('Project is not valid.')
                     return False 
             else :
-                self.error('Invalid \'profile\' : %s' % profile)
+                self.error('Invalid \'profile_path\' : %s' % profile_path)
                 return False 
         else :
-            self.error('No such \'profile\' : %s' % profile)
+            self.error('No such \'profile_path\' : %s' % profile_path)
             return False 
             
         return True
