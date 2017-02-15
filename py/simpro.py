@@ -236,7 +236,9 @@ class SimpleProject :
         else :
             self.error("Missing \'profile\': %s" % profile)
             return False
-        
+    
+    def get_filepath(self, relpath) :
+        return os.path.join(self.path, self.name, relpath)
         
     def exec(self) :
         pass
