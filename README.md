@@ -1,4 +1,4 @@
-# SimpleProject
+# Project
 A python implementation of simple framework to maintain projects. 
 One can subclass SimpleProject to create a personalized project framework.
 
